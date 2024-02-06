@@ -15,8 +15,8 @@ function RQProvider({children}: Props) {
         queries: {
           refetchOnWindowFocus: false,
           retryOnMount: true,
-          refetchOnReconnect: false,
-          retry: false,
+          refetchOnReconnect: false, // internet 연결이 끊겼다가 다시 가져올 때,
+          retry: false, // 실패를 할 경우 몇 번 재시도 하도록 설정 (false: 사용안함)
         },
       },
     })
