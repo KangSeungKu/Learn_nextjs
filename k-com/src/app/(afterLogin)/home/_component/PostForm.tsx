@@ -2,6 +2,7 @@
 
 import {ChangeEventHandler, FormEventHandler, useRef, useState} from "react";
 import style from './postForm.module.css';
+import { useSession } from "next-auth/react";
 
 export default function PostForm() {
     // typescript의 경우, 'HTMLInputElement'와 같은 타입과 null값을 반드시 넣어줘야 함.
@@ -9,10 +10,7 @@ export default function PostForm() {
     // 나중에 typescript 교과서를 참고할 것.
   const imageRef = useRef<HTMLInputElement>(null);
   const [content, setContent] = useState('');
-  const me = {
-    id: 'zerohch0',
-    image: '/5Udwvqim.jpg'
-  };
+  const {data: me} = useSession();
 
   // 다음과 같이 textArea의 경우, HTMLTextAreaElement를 사용
   // input일 경우 HTMLInputElement를 사용
@@ -35,7 +33,7 @@ export default function PostForm() {
     <form className={style.postForm} onSubmit={onSubmit}>
       <div className={style.postUserSection}>
         <div className={style.postUserImage}>
-          <img src={me.image} alt={me.id} />
+          <img src={me?.user?.image as string} alt={me?.user?.email as string} />
         </div>
       </div>
       <div className={style.postInputSection}>
